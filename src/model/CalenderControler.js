@@ -77,6 +77,13 @@ class CalendarControler {
       if (!number) return;
       //평일
       if (!this.isWeekEnd(string, number, MONTH)) {
+        if (
+          DAY_WORKER_DUP[0] &&
+          BLANK_CALENDAR[number - 1] !== DAY_WORKER_DUP[0]
+        ) {
+          BLANK_CALENDAR[number] = DAY_WORKER_DUP.shift();
+          return;
+        }
         if (BLANK_CALENDAR[number - 1] !== this.#dayWorkers[dayOrder]) {
           BLANK_CALENDAR[number] = this.#dayWorkers[dayOrder];
           dayOrder = this.upDayOrder(dayOrder);
@@ -85,25 +92,27 @@ class CalendarControler {
           DAY_WORKER_DUP.push(this.#dayWorkers[dayOrder]);
           dayOrder = this.upDayOrder(dayOrder);
           BLANK_CALENDAR[number] = this.#dayWorkers[dayOrder];
-          BLANK_CALENDAR[number] = this.#dayWorkers[dayOrder];
           dayOrder = this.upDayOrder(dayOrder);
         }
       }
       //주말
       if (this.isWeekEnd(string, number, MONTH)) {
-        if (DAY_WORKER_DUP[0]) {
-          //... 중복되는 부분
+        if (
+          END_WORKER_DUP[0] &&
+          BLANK_CALENDAR[number - 1] !== END_WORKER_DUP[0]
+        ) {
+          BLANK_CALENDAR[number] = END_WORKER_DUP.shift();
+          return;
         }
         if (BLANK_CALENDAR[number - 1] !== this.#endWorkers[endOrder]) {
           BLANK_CALENDAR[number] = this.#endWorkers[endOrder];
           endOrder = this.upEndOrder(endOrder);
         }
-        if (BLANK_CALENDAR[number - 1] === this.#endWorkers) {
-          DAY_WORKER_DUP.push(this.#endWorkers[endOrder]);
+        if (BLANK_CALENDAR[number - 1] === this.#endWorkers[endOrder]) {
+          END_WORKER_DUP.push(this.#endWorkers[endOrder]);
           endOrder = this.upEndOrder(endOrder);
           BLANK_CALENDAR[number] = this.#endWorkers[endOrder];
-          BLANK_CALENDAR[number] = this.#endWorkers[endOrder];
-          endOrder = this.upEndOrder(dayOrder);
+          endOrder = this.upEndOrder(endOrder);
         }
       }
     });

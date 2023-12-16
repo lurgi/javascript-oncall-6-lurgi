@@ -11,9 +11,6 @@ const OutputView = Object.freeze({
   },
 
   printResults({ dayCalendar, workerCalendar, holidays, month }) {
-    Console.print(dayCalendar);
-    Console.print(workerCalendar);
-    Console.print(holidays);
     for (let day = 1; day < dayCalendar.length; day += 1) {
       Console.print(
         OUTPUT_MESSAGES.result({
