@@ -37,6 +37,7 @@ class App {
 
   handleResults() {
     this.#calenderControler.setWorkerCalendar();
+    this.#calenderControler.handleException();
   }
 }
 

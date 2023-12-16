@@ -66,6 +66,10 @@ class Calendar {
     }
   }
 
+  getMonth() {
+    return this.#month;
+  }
+
   getDayCalendar() {
     return [...this.#dayStringArr];
   }
