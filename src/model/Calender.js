@@ -14,22 +14,6 @@ const LAST_DAY = Object.freeze([
   31,
 ]);
 
-const HOLIDAYS = [
-  undefined,
-  [1],
-  undefined,
-  [1],
-  undefined,
-  [5],
-  [6],
-  undefined,
-  [15],
-  undefined,
-  [3, 9],
-  undefined,
-  [25],
-];
-
 const DAY_STRING = ["월", "화", "수", "목", "금", "토", "일"];
 
 const MONTH_NUMBER = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
@@ -46,18 +30,18 @@ class Calendar {
     this.#validStartDay(startDay);
 
     this.#month = month;
-    this.#dayStringArr = Array.from(
+    (this.#dayStringArr = Array.from(
       { length: LAST_DAY[month] + 1 },
       () => null
-    );
-    this.#setWeek(startDay);
+    )),
+      this.#setWeek(startDay);
   }
 
   #setWeek(startDay) {
     const DAY_INDEX = DAY_STRING.findIndex((value) => startDay === value);
     let curIndex = DAY_INDEX;
-    console.log(curIndex);
     this.#dayStringArr.forEach((_, index) => {
+      if (!index) return;
       this.#dayStringArr[index] = DAY_STRING[curIndex];
       if (curIndex === 6) {
         curIndex = 0;
@@ -80,6 +64,14 @@ class Calendar {
     if (!DAY_STRING.includes(startDay)) {
       throw new Error(ERROR_MESSAGE);
     }
+  }
+
+  getDayCalendar() {
+    return [...this.#dayStringArr];
+  }
+
+  getBlankCalendar() {
+    return Array.from({ length: LAST_DAY[this.#month] + 1 }, () => null);
   }
 }
 

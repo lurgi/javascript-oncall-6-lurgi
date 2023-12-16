@@ -10,7 +10,7 @@ class App {
 
     await this.handleDate();
     await this.handleWorker();
-    // TODO 출력
+    this.handleResults();
   }
 
   async handleDate() {
@@ -33,6 +33,10 @@ class App {
       OutputView.print(error.message);
       await this.handleWorker();
     }
+  }
+
+  handleResults() {
+    this.#calenderControler.setWorkerCalendar();
   }
 }
 

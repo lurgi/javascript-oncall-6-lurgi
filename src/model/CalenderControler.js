@@ -1,5 +1,21 @@
 import Calendar from "./Calender";
 
+const HOLIDAYS = Object.freeze([
+  undefined,
+  [1],
+  undefined,
+  [1],
+  undefined,
+  [5],
+  [6],
+  undefined,
+  [15],
+  undefined,
+  [3, 9],
+  undefined,
+  [25],
+]);
+
 const ERROR_MESSAGES = Object.freeze({
   cnt: "[ERROR] 최소 5명 최대 35명 까지만 입력해주세요.",
   duplication: "[ERROR] 중복된 이름이 있습니다.",
@@ -41,6 +57,16 @@ class CalendarControler {
         throw new Error(ERROR_MESSAGES.over5);
       }
     });
+  }
+
+  setWorkerCalendar() {
+    const DAY_CALENDAR = this.#calendar.getDayCalendar();
+    console.log(DAY_CALENDAR);
+    const BLANK_CALENDAR = this.#calendar.getBlankCalendar();
+    /**
+     * 순회를 같이 돌면서 일단 Blank 달력에 인원을 우선적으로 배치하자.
+     */
+    // DAY_CALENDAR.forEach((day,)=>)
   }
 }
 
