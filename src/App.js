@@ -1,6 +1,6 @@
-import CalendarControler from "./model/CalenderControler";
-import InputView from "./view/InputView";
-import OutputView from "./view/OutputView";
+import CalendarControler from './model/CalendarControler';
+import InputView from './view/InputView';
+import OutputView from './view/OutputView';
 
 class App {
   #calenderControler;
