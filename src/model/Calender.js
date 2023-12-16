@@ -1,25 +1,10 @@
-const LAST_DAY = Object.freeze([
-  undefined,
-  31,
-  28,
-  31,
-  30,
-  31,
-  30,
-  31,
-  31,
-  30,
-  31,
-  30,
-  31,
-]);
+const LAST_DAY = Object.freeze([undefined, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]);
 
-const DAY_STRING = ['월', '화', '수', '목', '금', '토', '일'];
+const DAY_STRING = Object.freeze(['월', '화', '수', '목', '금', '토', '일']);
 
 const MONTH_NUMBER = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
 
-const ERROR_MESSAGE =
-  '[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.';
+const ERROR_MESSAGE = '[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.';
 
 class Calendar {
   #month;
@@ -31,10 +16,7 @@ class Calendar {
     this.#validStartDay(startDay);
 
     this.#month = month;
-    this.#dayStringArr = Array.from(
-      { length: LAST_DAY[month] + 1 },
-      () => null,
-    );
+    this.#dayStringArr = Array.from({ length: LAST_DAY[month] + 1 }, () => null);
     this.#setWeek(startDay);
   }
 
