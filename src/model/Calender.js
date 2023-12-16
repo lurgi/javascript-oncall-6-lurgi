@@ -65,7 +65,6 @@ class Calendar {
       }
       curIndex += 1;
     });
-    console.log(this.#dayStringArr);
   }
 
   #validMonth(month) {
