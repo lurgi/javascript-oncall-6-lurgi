@@ -37,7 +37,16 @@ class App {
 
   handleResults() {
     this.#calenderControler.setWorkerCalendar();
-    this.#calenderControler.handleException();
+    const DAY_CALENDAR = this.#calenderControler.getDayCalendar();
+    const WORKER_CALENDAR = this.#calenderControler.getWorkerCalendar();
+    const HOLIDAYS = this.#calenderControler.getHoliday();
+    const MONTH = this.#calenderControler.getMonth();
+    OutputView.printResults({
+      dayCalendar: DAY_CALENDAR,
+      workerCalendar: WORKER_CALENDAR,
+      holidays: HOLIDAYS,
+      month: MONTH,
+    });
   }
 }
 

@@ -69,42 +69,86 @@ class CalendarControler {
     const BLANK_CALENDAR = this.#calendar.getBlankCalendar();
 
     let dayOrder = 0;
-    let weekOrder = 0;
+    let endOrder = 0;
+    const DAY_WORKER_DUP = [];
+    const END_WORKER_DUP = [];
 
     DAY_CALENDAR.forEach((string, number) => {
       if (!number) return;
-      //평일인 경우
-      if (
-        WEEK_DAY.includes(string) &&
-        (!HOLIDAYS[MONTH] || !HOLIDAYS[MONTH].includes(number))
-      ) {
-        const WORKER = this.#dayWorkers[dayOrder];
-        BLANK_CALENDAR[number] = WORKER;
-        if (dayOrder === this.#dayWorkers.length - 1) {
-          dayOrder = 0;
-          return;
+      //평일
+      if (!this.isWeekEnd(string, number, MONTH)) {
+        if (BLANK_CALENDAR[number - 1] !== this.#dayWorkers[dayOrder]) {
+          BLANK_CALENDAR[number] = this.#dayWorkers[dayOrder];
+          dayOrder = this.upDayOrder(dayOrder);
         }
-        dayOrder += 1;
+        if (BLANK_CALENDAR[number - 1] === this.#dayWorkers) {
+          DAY_WORKER_DUP.push(this.#dayWorkers[dayOrder]);
+          dayOrder = this.upDayOrder(dayOrder);
+          BLANK_CALENDAR[number] = this.#dayWorkers[dayOrder];
+          BLANK_CALENDAR[number] = this.#dayWorkers[dayOrder];
+          dayOrder = this.upDayOrder(dayOrder);
+        }
       }
-      //주말인 경우
-      if (
-        WEEK_END.includes(string) ||
-        (HOLIDAYS[MONTH] && HOLIDAYS[MONTH].includes(number))
-      ) {
-        const WORKER = this.#endWorkers[weekOrder];
-        BLANK_CALENDAR[number] = WORKER;
-        if (weekOrder === this.#endWorkers.length - 1) {
-          weekOrder = 0;
-          return;
+      //주말
+      if (this.isWeekEnd(string, number, MONTH)) {
+        if (DAY_WORKER_DUP[0]) {
+          //... 중복되는 부분
         }
-        weekOrder += 1;
+        if (BLANK_CALENDAR[number - 1] !== this.#endWorkers[endOrder]) {
+          BLANK_CALENDAR[number] = this.#endWorkers[endOrder];
+          endOrder = this.upEndOrder(endOrder);
+        }
+        if (BLANK_CALENDAR[number - 1] === this.#endWorkers) {
+          DAY_WORKER_DUP.push(this.#endWorkers[endOrder]);
+          endOrder = this.upEndOrder(endOrder);
+          BLANK_CALENDAR[number] = this.#endWorkers[endOrder];
+          BLANK_CALENDAR[number] = this.#endWorkers[endOrder];
+          endOrder = this.upEndOrder(dayOrder);
+        }
       }
     });
 
     this.#workerCalendar = [...BLANK_CALENDAR];
+    console.log(this.#workerCalendar);
   }
 
-  handleException() {}
+  upDayOrder(order) {
+    if (order === this.#dayWorkers.length - 1) {
+      return 0;
+    }
+    return order + 1;
+  }
+
+  upEndOrder(order) {
+    if (order === this.#endWorkers.length - 1) {
+      return 0;
+    }
+    return order + 1;
+  }
+
+  isWeekEnd(string, number, month) {
+    return (
+      WEEK_END.includes(string) ||
+      (HOLIDAYS[month] && HOLIDAYS[month].includes(number))
+    );
+  }
+
+  getDayCalendar() {
+    return [...this.#calendar.getDayCalendar()];
+  }
+
+  getWorkerCalendar() {
+    return [...this.#workerCalendar];
+  }
+
+  getHoliday() {
+    const MONTH = this.#calendar.getMonth();
+    return HOLIDAYS[MONTH];
+  }
+
+  getMonth() {
+    return this.#calendar.getMonth();
+  }
 }
 
 export default CalendarControler;
