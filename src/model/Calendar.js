@@ -4,7 +4,11 @@ const DAY_STRING = Object.freeze(['월', '화', '수', '목', '금', '토', '일
 
 const MONTH_NUMBER = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
 
-const ERROR_MESSAGE = '[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.';
+const ERROR_MESSAGES = {
+  notNumberValid: '[ERROR] 유효하지 않은 숫자 값입니다. 다시 입력해 주세요.',
+  notMonthValid: '[ERROR] 1월 부터 12월 까지만 입력해주세요.',
+  notDayValid: '[ERROR] 잘못된 요일 값입니다. 다시 입력해 주세요',
+};
 
 class Calendar {
   #month;
@@ -36,16 +40,16 @@ class Calendar {
 
   #validMonth(month) {
     if (Number.isNaN(month)) {
-      throw new Error(ERROR_MESSAGE);
+      throw new Error(ERROR_MESSAGES.notValid);
     }
     if (!MONTH_NUMBER.includes(month)) {
-      throw new Error(ERROR_MESSAGE);
+      throw new Error(ERROR_MESSAGES.notMonthValid);
     }
   }
 
   #validStartDay(startDay) {
     if (!DAY_STRING.includes(startDay)) {
-      throw new Error(ERROR_MESSAGE);
+      throw new Error(ERROR_MESSAGES.notDayValid);
     }
   }
 

@@ -22,9 +22,9 @@ const WORKER_MAX = 35;
 
 const ERROR_MESSAGES = Object.freeze({
   cnt: '[ERROR] 최소 5명 최대 35명 까지만 입력해주세요.',
-  duplication: '[ERROR] 중복된 이름이 있습니다.',
-  wrong: '[ERROR] 잘못 입력하셨습니다.',
-  over5: '[ERROR] 닉네임은 5자 이하여야 합니다.',
+  duplication: '[ERROR] 중복된 이름이 있습니다. 다시입력해주세요.',
+  wrong: '[ERROR] 잘못 입력하셨습니다. 다시입력해주세요.',
+  over5: '[ERROR] 닉네임은 5자 이하여야 합니다. 다시입력해주세요.',
 });
 
 class CalendarControler {
