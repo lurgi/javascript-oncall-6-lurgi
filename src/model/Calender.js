@@ -14,15 +14,16 @@ const LAST_DAY = Object.freeze([
   31,
 ]);
 
-const DAY_STRING = ["월", "화", "수", "목", "금", "토", "일"];
+const DAY_STRING = ['월', '화', '수', '목', '금', '토', '일'];
 
 const MONTH_NUMBER = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
 
 const ERROR_MESSAGE =
-  "[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.";
+  '[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.';
 
 class Calendar {
   #month;
+
   #dayStringArr;
 
   constructor(month, startDay) {
@@ -30,11 +31,11 @@ class Calendar {
     this.#validStartDay(startDay);
 
     this.#month = month;
-    (this.#dayStringArr = Array.from(
+    this.#dayStringArr = Array.from(
       { length: LAST_DAY[month] + 1 },
-      () => null
-    )),
-      this.#setWeek(startDay);
+      () => null,
+    );
+    this.#setWeek(startDay);
   }
 
   #setWeek(startDay) {
@@ -55,7 +56,7 @@ class Calendar {
     if (Number.isNaN(month)) {
       throw new Error(ERROR_MESSAGE);
     }
-    if (month > 12 || month < 1) {
+    if (!MONTH_NUMBER.includes(month)) {
       throw new Error(ERROR_MESSAGE);
     }
   }
